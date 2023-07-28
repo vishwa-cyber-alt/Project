@@ -4,7 +4,8 @@ var button = document.querySelector('.btn');
 const showData = document.querySelector('.showData');
 
 //Get API Key By Login To OpenWeather.org
-const API_Key = "a0e78d3b449db7059df0a38abd3952f8";
+const API_Key = "";
+//YTBlNzhkM2I0NDlkYjcwNTlkZjBhMzhhYmQzOTUyZjg=
 
 //Now Add Event Listener
 button.addEventListener('click', () => {
