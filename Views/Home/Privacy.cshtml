@@ -1,0 +1,109 @@
+﻿<div id="get">
+
+</div>@* 
+<script>
+	var Test=function(){
+		var events=function(){
+
+		};
+		var Get=function(){
+			$.ajax({
+				url:"/Home/Get",
+				type:"GET",
+				success:function(response)
+				{
+					var htm=`
+						<table class="table">
+						<thead>
+						<tr>
+						<td>userId</td>
+						<td>username</td>
+						<td>password</td>
+						</tr>
+						<tbody>
+					`;
+					$.each(response,function(index,data)
+					{
+						htm += `
+							<tr>
+							<td>${data.userId}</td>
+							<td>${data.username}</td>
+							<td>${data.password}</td>
+							</tr>
+						`;
+					});
+					htm +=`
+						</tbody>
+						</table>
+					`;
+					$("#get").html(htm);
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		};
+		return{
+
+		init:function(){
+			events();
+			Get();
+		}
+		};
+	}();
+	$(document).ready(function()
+	{
+		Test.init();
+	});
+</script> *@
+
+<script>
+	var Test=function(){
+		var events=function(){
+
+		};
+		var Get=function(){
+			$.ajax({
+				url:"/Home/Get",
+				type:"GET",
+				success:function(response)
+				{
+					var htm = `
+						<table class="table">
+						<thead>
+						<tr><td>username</td></tr>
+						</thead>
+						<tbody>
+					`;
+					$.each(response,function(index,data){
+						htm += `
+				
+							<tr>
+							<td>${data.userId}</td><td>${data.username}</td>
+							<td>${data.password}</td></tr>
+						`;
+					});
+						htm +=`
+					
+							</tbody>
+							</table>
+						`;
+							$("#get").html(htm);
+					
+				},
+				error:function(err){
+					console.log(err);
+				}
+			});
+		};
+		return{
+			init:function(){
+				events();
+				Get();
+			}
+		}
+	}();
+	$(document).ready(function(){
+		Test.init();
+	});
+</script>

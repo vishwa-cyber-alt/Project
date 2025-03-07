@@ -1,0 +1,129 @@
+﻿@* <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Person</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+
+    <h2>Add Person</h2>
+    <form id="addPersonForm">
+        <label for="name">Name:</label><br>
+        <input type="text" id="name" name="name" required><br><br>
+
+        <label for="email">Email:</label><br>
+        <input type="email" id="email" name="email" required><br><br>
+
+        <button type="submit">Add Person</button>
+    </form>
+
+    <div id="responseMessage" style="margin-top: 20px;"></div>
+
+    <script>
+        $(document).ready(function () {
+            // When the form is submitted
+            $('#addPersonForm').on('submit', function (e) {
+                e.preventDefault(); // Prevent the form from reloading the page
+
+                // Get form data
+                var name = $('#name').val();
+                var email = $('#email').val();
+
+                // Perform AJAX request to the backend API
+                $.ajax({
+                    url: '/api/person/add',  // This is the endpoint for the API (adjust if necessary)
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        name: name,
+                        email: email
+                    }),
+                    success: function (response) {
+                        // Handle success - display the message
+                        $('#responseMessage').html('<span style="color: green;">' + response.message + '</span>');
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error - display the error message
+                        var errorMessage = xhr.responseJSON ? xhr.responseJSON.message : 'An error occurred';
+                        $('#responseMessage').html('<span style="color: red;">' + errorMessage + '</span>');
+                    }
+                });
+            });
+
+
+        });
+    </script>
+
+</body>
+</html>
+ *@
+<div id="getusers"></div>
+<script>
+	var Learn = function () {
+		var events = function () {
+			// Close Modal
+		};
+
+			
+
+		var GetUsers = function () {
+			$.ajax({
+				url: "/Home/GetUsers",
+				type: "GET",
+				success: function (response) {
+					var htm = `
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Email</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+					`;
+
+					$.each(response, function (index, data) {
+						htm += `
+							<tr>
+								<td>${data.name}</td>
+								<td>${data.email}</td>
+							</tr>
+						`;
+					});
+
+					htm += `
+						</tbody>
+					</table>
+					`;
+					$('#getusers').html(htm);
+				},
+				error: function (err) {
+					console.log(err);
+				}
+			});
+		};
+
+	
+		
+
+
+
+
+		
+
+		return {
+			init: function () {
+				events();
+				GetUsers();
+			},
+			
+		};
+	}();
+
+	$(document).ready(function () {
+		Learn.init();
+	});
+</script>
