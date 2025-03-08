@@ -1,0 +1,78 @@
+﻿<div id="count"></div>
+<div id="a"></div>
+
+<script>
+	var One=function()
+	{
+		var events=function()
+		{
+
+		};
+		var GetSuppliers=function()
+		{
+			$.ajax({
+				url:"/Home/GetSupplier",
+				type:"GET",
+				success:function(response)
+				{
+					var companycount=0;
+					console.log(response);
+					var htm=
+					`
+					<table class="table">
+					<thead>
+					<tr>
+					<td>Company Name</td>
+					<td>Contact Name</td>
+					<td>City</td>
+					<td>Country</td>
+
+					</tr>
+
+					</thead>
+					<tbody>
+					`;
+					
+					$.each(response,function(index,data)
+					{
+						if(data.companyName)
+						{
+							companycount++;
+						}
+						htm+=`
+						<tr>
+						<td>${data.companyName}</td>
+						<td>${data.contactName}</td>
+						<td>${data.city}</td>
+						<td>${data.country}</td>
+						</tr>
+						`;
+					});
+					
+					
+					htm+=`
+					</tbody>
+					</table>
+					`;
+					$("#count").text(companycount);
+					$("#a").html(htm);
+				},
+				error:function(er)
+				{
+					console.log(er);
+				}
+			});
+		};
+		return {
+			init:function()
+			{
+				events();
+				GetSuppliers();
+			},
+		};
+	}();
+	$(document).ready(function()
+	{
+		One.init();
+	});
+</script>
